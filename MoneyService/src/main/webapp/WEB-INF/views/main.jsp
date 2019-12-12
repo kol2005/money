@@ -13,12 +13,27 @@
     <style>
         * {
             /* border: 1px solid black;*/
+
         }
 
+			table {
+		  border-collapse: collapse;
+		  border: 2px solid black;
+		  padding: 5px;
+		  width:100%;
+			}
         p {
             margin: 1px;
             margin-top: 13px;
         }
+        
+        p.q-text{
+        font-weight: bold;
+        }
+        
+        tr.cut {
+ 		 border-bottom: 1px solid #ddd;
+		}
         
         p.tip {
         text-align: center;
@@ -28,6 +43,7 @@
 
         header {
             text-align: center;
+            background-image: url('${rootPath}/images/dog-pig.jpg');
         }
 
         h3 {
@@ -40,7 +56,6 @@
             font-size: 100px;
             margin: 20px;
             padding: 5px auto;
-            background-image:url('${rootPath}/images/maxresdefault (1).jpg') no-repeat 95% 50%;
     
         }
         
@@ -97,16 +112,16 @@
     <script>
             $(function() {
                 $("#btn-search").click(function() {
-                    let city = $("#city").val()
+                    let city = $(".city").val()
                     let district = $("#district").val()
 
                     if(city == "") {
                         alert("시/도를 선택하세요")
-                        $("#city").focus()
+                        $(".city").focus()
                         return false
                     } else if(district == "") {
                         alert("시/군/구를 선택하세요")
-                        $("#district").focus()
+                        $(".district").focus()
                         return false
                     } else if($("input[name='foreigner']:checked").length < 1) {
                         alert("내국인/외국인 여부를 선택하세요")
@@ -143,8 +158,13 @@
     <form method="POST">
         <br/>
         <h3 id="necessary">- 필수입력 -</h3>
-        <p>1. 현재 거주하는 지역을 선택하세요<span class="star">*</span></p>
-        <select name="city" class="city">
+        
+        <table>
+       	 <tr><td><p class="q-text">1. 현재 거주하는 지역을 선택하세요<span class="star">*</span></p></td>
+       	 </tr>
+
+		<tr class="cut">
+       	<td><select name="city" class="city">
             <option value="" selected="selected">시/도</option>
             <option value="강원도">강원도</option>
             <option value="경기도">경기도</option>
@@ -171,26 +191,58 @@
             <option value="2">2</option>
             <option value="2">3</option>
         </select>
+        
+        </td>
+        </tr>
+              
 
-        <p>2. 내국인이신가요? 외국인이신가요?<span class="star">*</span></p>
-        <div class="foreigner">
+	<tr>
+	<td><p class="q-text">2. 내국인이신가요? 외국인이신가요?<span class="star">*</span></p></td>
+	</tr>
+	<tr class="cut">
+       <td>
+       	<div class="foreigner">
             <input type="radio" name="foreigner" value="내국인" id="fr1"><label for="fr1">내국인</label>
-            <input type="radio" name="foreigner" value="외국인" id="fr2"><label for="fr2">외국인</label>
+          	<input type="radio" name="foreigner" value="외국인" id="fr2"><label for="fr2">외국인</label>
         </div>
+        </td>
+	</tr>
 
-        <p>3. 등본상 가구주이신가요?<span class="star">*</span></p>
-        <div class="gagu">
+	<tr>
+       <td>
+        <p class="q-text">3. 등본상 가구주이신가요?<span class="star">*</span></p>
+        </td>
+        </tr>
+        <tr class="cut">
+      	 <td>
+       	 <div class="gagu">
             <input type="radio" name="gagu" value="가구주" id="gagu1"><label for="gagu1">가구주</label>
             <input type="radio" name="gagu" value="가구원" id="gagu2"><label for="gagu2">가구원</label>
         </div>
+        </td>
+        </tr>
 
-        <p>4. 주택을 보유중이신가요?<span class="star">*</span></p>
+	<tr>
+       <td>
+        <p class="q-text">4. 주택을 보유중이신가요?<span class="star">*</span></p>
+		</td>
+		</tr>
+			<tr class="cut">
+       <td>
         <div class="house">
             <input type="radio" name="house" value="보유" id="house1"><label for="house1">보유</label>
             <input type="radio" name="house" value="미보유" id="house2"><label for="house2">미보유</label>
         </div>
+        </td>
+        </tr>
 
-        <p>4-1. (주택 보유 선택시) 주거유형을 선택하세요. <span class="Dselection">(중복선택가능)</span><span class="star">*</span></p>
+	<tr>
+       <td>
+        <p class="q-text">4-1. (주택 보유 선택시) 주거유형을 선택하세요. <span class="Dselection">(중복선택가능)</span><span class="star">*</span></p>
+        </td>
+        </tr>
+        <tr class="cut">
+       <td>
         <div class="house_a">
             <input type="hidden" name="house_a" value="dummy">
             <input type="checkbox" name="house_a" id="house_a_1" value="house_a_1"><label for="house_a_1">전세</label>
@@ -200,13 +252,23 @@
             <input type="checkbox" name="house_a" id="house_a_5" value="house_a_5"><label for="house_a_5">보장기관 제공주거(시설입소)</label>
             <input type="checkbox" name="house_a" id="house_a_6" value="house_a_6"><label for="house_a_6">기타</label>
         </div>
-
-        <br/>
-        <br/>
+        </td>
+        </tr>
+        </table>
+        </br>
+        
+        
+        
+        
+        
+        
         <h3>- 선택입력 -</h3>
-        <p class="tip">밑에 있는 정보들은 입력하지 않아도 검색이 가능하지만, 결과의 정확도가 낮아질 수 있습니다</p>
+        <table>
+       	 <tr><td><p class="tip">밑에 있는 정보들은 입력하지 않아도 검색이 가능하지만, 결과의 정확도가 낮아질 수 있습니다</p>
         <br/>
-        <p>5. 재학중이신가요?</p>
+       <tr><td><p class="q-text">5. 재학중이신가요?</p></td></tr>
+       <tr class="cut">
+       <td>
         <div class="hak">
             <input type="radio" name="hak" value="어린이집" id="hak1"><label for="hak1">어린이집</label>
             <input type="radio" name="hak" value="유치원" id="hak2"><label for="hak2">유치원</label>
@@ -218,38 +280,49 @@
             <input type="radio" name="hak" value="국립특수학교" id="hak8"><label for="hak8">국립특수학교</label>
             <input type="radio" name="hak" value="기타" id="hak9"><label for="hak9">기타</label>
         </div>
+        </td></tr>
 
-        <p>6. 사업자,근로자,취업준비생/창업예정자/구직자 중 해당하는 부분이 있으신가요? <span class="Dselection">(중복선택가능)</span></p>
+       <tr><td><p class="q-text">6. 사업자,근로자,취업준비생/창업예정자/구직자 중 해당하는 부분이 있으신가요? <span class="Dselection">(중복선택가능)</span></p></td></tr>
+       <tr class="cut">
+       <td>
         <div class="job1">
             <input type="hidden" name="job1" value="dummy">
             <input type="checkbox" name="job1" id="job1_1" value="사업자"><label for="job1_1">사업자</label>
             <input type="checkbox" name="job1" id="job1_2" value="근로자"><label for="job1_2">근로자</label>
             <input type="checkbox" name="job1" id="job1_3" value="취업준비생/창업예정자/구직자"><label for="job1_3">취업준비생/창업예정자/구직자</label>
-        </div>
+        </div></td></tr>
 
-        <p>6-1. (사업자 선택시) 지원형태를 선택하세요. <span class="Dselection">(중복선택가능)</span></p>
+       <tr><td><p class="q-text">6-1. (사업자 선택시) 지원형태를 선택하세요. <span class="Dselection">(중복선택가능)</span></p></td></tr>
+       <tr class="cut">
+       <td>
         <div class="job1_a">
             <input type="hidden" name="job1_a" value="dummy">
             <input type="checkbox" name="job1_a" id="job1_a_1" value="고용지원"><label for="job1_a_1">고용지원(고용안정, 고용축진, 고용연장에 대한 지원)</label>
             <input type="checkbox" name="job1_a" id="job1_a_2" value="운영지원"><label for="job1_a_2">운영지원(사업운영, 일반운영 등에 대한 지원)</label><br/>
             <input type="checkbox" name="job1_a" id="job1_a_3" value="훈련지원"><label for="job1_a_3">훈련지원(근로자의 근로능력, 자활 등에 대한 교육/훈련 지원)</label>
             <input type="checkbox" name="job1_a" id="job1_a_4" value="환경지원"><label for="job1_a_4">환경지원(시설, 장비, 설비 설치 및 설치비 지원, 안전지원)</label>
-        </div>
+        </div></td></tr>
 
-        <p>7. (정년)퇴직자,중장기복무제대군인 중 해당하는 부분이 있으신가요? <span class="Dselection">(중복선택가능)</span></p>
+        <tr><td><p class="q-text">7. (정년)퇴직자,중장기복무제대군인 중 해당하는 부분이 있으신가요? <span class="Dselection">(중복선택가능)</span></p></td></tr>
+               	 <tr class="cut">
+       <td>
         <div class="job2">
             <input type="hidden" name="job2" value="dummy">
             <input type="checkbox" name="job2" id="job2_1" value="퇴직자"><label for="job2_1">(정년)퇴직자</label>
             <input type="checkbox" name="job2" id="job2_2" value="중장기복무제대군인"><label for="job2_2">중장기복무제대군인</label>
-        </div>
+        </div></td></tr>
 
-        <p>8. 장애유무를 선택하세요</p>
+        <tr><td><p class="q-text">8. 장애유무를 선택하세요</p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="disorder">
             <input type="radio" name="disorder" value="어린이집" id="disorder1"><label for="disorder1">있음</label>
             <input type="radio" name="disorder" value="유치원" id="disorder2"><label for="disorder2">없음</label>
-        </div>
+        </div></td></tr>
 
-        <p>8-1. (장애유무 선택시) 장애유형을 선택하세요. <span class="Dselection">(중복선택가능)</span></p>
+        <tr><td><p class="q-text">8-1. (장애유무 선택시) 장애유형을 선택하세요. <span class="Dselection">(중복선택가능)</span></p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="disorder_a">
             <input type="hidden" name="disorder_a" value="dummy">
             <input type="checkbox" name="disorder_a" id="disorder_a_1" value="지체장애"><label for="disorder_a_1">지체장애</label>
@@ -267,32 +340,40 @@
             <input type="checkbox" name="disorder_a" id="disorder_a_13" value="지적장애"><label for="disorder_a_13">지적장애</label>
             <input type="checkbox" name="disorder_a" id="disorder_a_14" value="자폐성장애"><label for="disorder_a_14">자폐성장애</label>
             <input type="checkbox" name="disorder_a" id="disorder_a_16" value="정신장애"><label for="disorder_a_15">정신장애</label>
-        </div>
+        </div></td></tr>
 
-        <p>8-2. (장애유무 선택시) 장애유형을 선택하세요. <span class="Dselection">(중복선택가능)</span></p>
+        <tr><td><p class="q-text">8-2. (장애유무 선택시) 장애유형을 선택하세요. <span class="Dselection">(중복선택가능)</span></p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="disorder_b">
             <input type="hidden" name="disorder_b" value="dummy">
             <input type="checkbox" name="disorder_b" id="disorder_b_1" value="disorder_b_1"><label for="disorder_b_1">중증장애(장애인연금 신청가능대상자)</label>
             <input type="checkbox" name="disorder_b" id="disorder_b_2" value="disorder_b_2"><label for="disorder_b_2">비등록 장애인</label><br/>
             <input type="checkbox" name="disorder_b" id="disorder_b_3" value="disorder_b_3"><label for="disorder_b_3">장애정도가 심한 장애인</label>
             <input type="checkbox" name="disorder_b" id="disorder_b_4" value="disorder_b_4"><label for="disorder_b_4">장애정도가 심하지 않은 장애인</label>
-        </div>
+        </div></td></tr>
 
-        <p>9. 질병유무를 선택하세요. <span class="Dselection">(중복선택가능)</span></p>
+        <tr><td><p class="q-text">9. 질병유무를 선택하세요. <span class="Dselection">(중복선택가능)</span></p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="disease">
             <input type="hidden" name="disease" value="dummy">
             <input type="checkbox" name="disease" id="disease1" value="disease1"><label for="disease1">희귀 난치성, 중증질환(암, 심장병, 뇌질환, 희귀난치성 질환 등 중증질환)</label><br/>
             <input type="checkbox" name="disease" id="disease2" value="disease2"><label for="disease2">중증질환 외 질병(만성질환자, 당뇨, 고혈압, 결핵, 선천성대사이상, 치매(파킨슨) 등)</label>
-        </div>
+        </div></td></tr>
 
-        <p>10. 건강상태를 선택하세요. <span class="Dselection">(중복선택가능)</span></p>
+        <tr><td><p class="q-text">10. 건강상태를 선택하세요. <span class="Dselection">(중복선택가능)</span></p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="health">
             <input type="hidden" name="health" value="dummy">
             <input type="checkbox" name="health" id="health1" value="health1"><label for="health1">임산부및출산(임산부, 출산한 사람 또는 출산 예정인 사람, 출산을 원하는 사람)</label><br/>
             <input type="checkbox" name="health" id="health2" value="health2"><label for="health2">(장기)요양환자(장기요양, 요양성환자)</label>
-        </div>
+        </div></td></tr>
 
-        <p>11. 보훈대상을 선택하세요. <span class="Dselection">(중복선택가능)</span></p>
+        <tr><td><p class="q-text">11. 보훈대상을 선택하세요. <span class="Dselection">(중복선택가능)</span></p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="bohun">
             <input type="hidden" name="bohun" value="dummy">
             <input type="checkbox" name="bohun" id="bohun1" value="bohun1"><label for="bohun1">5.18민주유공자(5·18민주화운동사망자(행방불명자), 5·18민주화운동부상자, 5·18민주화운동희생자)</label><br/>
@@ -302,9 +383,11 @@
             <input type="checkbox" name="bohun" id="bohun5" value="bohun5"><label for="bohun5">보훈보상 대상자</label><br/>
             <input type="checkbox" name="bohun" id="bohun6" value="bohun6"><label for="bohun6">참전 유공자(6ㆍ25참전 재일학도 의용군인, 참전유공자)</label><br/>
             <input type="checkbox" name="bohun" id="bohun7" value="bohun7"><label for="bohun7">특수임무 유공자(특수임무사망자·행방불명자, 특수임무부상자, 특수임무공로자)</label><br/>
-        </div>
+        </div></td></tr>
 
-        <p>12. 위기상황을 선택하세요. <span class="Dselection">(중복선택가능)</span></p>
+        <tr><td><p class="q-text">12. 위기상황을 선택하세요. <span class="Dselection">(중복선택가능)</span></p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="danger">
             <input type="hidden" name="danger" value="dummy">
             <input type="checkbox" name="danger" id="danger1" value="danger1"><label for="danger1">폭력(가정,성매매,성폭력,학교)/타인의범죄로인한피해/학대</label>
@@ -314,26 +397,32 @@
             <input type="checkbox" name="danger" id="danger5" value="danger5"><label for="danger5">학교밖청소년</label>
             <input type="checkbox" name="danger" id="danger6" value="danger6"><label for="danger6">실직</label>
             <input type="checkbox" name="danger" id="danger7" value="danger7"><label for="danger7">기타</label>
-        </div>
+        </div></td></tr>
 
-        <p>13. 피해상황을 선택하세요. <span class="Dselection">(중복선택가능)</span></p>
+        <tr><td><p class="q-text">13. 피해상황을 선택하세요. <span class="Dselection">(중복선택가능)</span></p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="damage">
             <input type="hidden" name="damage" value="dummy">
             <input type="checkbox" name="damage" id="damage1" value="damage1"><label for="damage1">산업재해 피해자 및 가족(업무상의 사유에 따른 근로자의 부상, 질병, 장해 또는 사망을 의미 (진폐장애, 분진작업근로자 포함))</label><br/>
             <input type="checkbox" name="damage" id="damage2" value="damage2"><label for="damage2">일제 강점기 피해자(사할린한인(가족), 일본군위안부피해자, 원폭피해자 및 유족)</label><br/>
             <input type="checkbox" name="damage" id="damage3" value="damage3"><label for="damage3">특수상황 피해자(석면피해(특별유족), 한센인피해자, 전후납북피해자, 의사상자 및 유족, 의사자의 장제를 행한자)</label><br/>
             <input type="checkbox" name="damage" id="damage4" value="damage4"><label for="damage4">기타</label>
-        </div>
+        </div></td></tr>
 
-        <p>14. 그 외 상황을 선택하세요. <span class="Dselection">(중복선택가능)</span></p>
+        <tr><td><p class="q-text">14. 그 외 상황을 선택하세요. <span class="Dselection">(중복선택가능)</span></p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="etc">
             <input type="hidden" name="etc" value="dummy">
             <input type="checkbox" name="etc" id="etc1" value="etc1"><label for="etc1">북한이탈주민</label>
             <input type="checkbox" name="etc" id="etc2" value="etc2"><label for="etc2">입양</label>
             <input type="checkbox" name="etc" id="etc3" value="etc3"><label for="etc3">가정위탁</label>
-        </div>
+        </div></td></tr>
 
-        <p>15. 건강보험료를 입력하세요</p>
+        <tr><td><p class="q-text">15. 건강보험료를 입력하세요</p></td></tr>
+        <tr class="cut">
+       <td>
         [ ▼ 국민건강보험공단 건강보험료 조회 링크 (클릭시 새 창에서 열림) ]
         <br/><a href="https://minwon.nhis.or.kr/menu/retriveMenuSet.xx?menuId=MENU_WBMCA09" target="_new">https://minwon.nhis.or.kr/menu/retriveMenuSet.xx?menuId=MENU_WBMCA09</a>
         <div class="nhis">
@@ -347,44 +436,60 @@
             </select>
 
             <input name="nhis2"> 원
-        </div>
+        </div></td></tr>
 
-        <p>16. 근로/사업소득(월평균)을 입력하세요</p>
+        <tr><td><p class="q-text">16. 근로/사업소득(월평균)을 입력하세요</p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="income1">
             본인 <input name="income1" id="income1"> 원
-        </div>
+        </div></td></tr>
 
-        <p>17. 그 외 소득(월평균)을 입력하세요</p>
+        <tr><td><p class="q-text">17. 그 외 소득(월평균)을 입력하세요</p></td></tr>
+        <tr class="cut">
+       <td>
         <div class="income2">
             본인 <input name="income2" id="income2"> 원
-        </div>
+        </div></td></tr>
 
-        <p>18. 주거용 재산을 입력하세요</p>
+        <tr><td><p class="q-text">18. 주거용 재산을 입력하세요</p></td></tr>
+        <tr class="cut">
+       <td>
         <p>- 거주를 목적으로 하는 주택, 부속토지 등의 금액</p>
         <div class="property1">
             본인 <input name="property1" id="property1"> 원
-        </div>
+        </div></td></tr>
 
-        <p>19. 주거 외 재산을 입력하세요</p>
+        <tr><td><p class="q-text">19. 주거 외 재산을 입력하세요</p></td></tr>
+        <tr class="cut">
+       <td>
         <p>- 주거용 목적 이외의 주택, 건물, 시설물, 토지, 임차보증금의 금액</p>
         <div class="property2">
             본인 <input name="property2" id="property2"> 원
-        </div>
+        </div></td></tr>
 
-        <p>20. 금융재산을 입력하세요</p>
+        <tr><td><p class="q-text">20. 금융재산을 입력하세요</p></td></tr>
+        <tr class="cut">
+       <td>
         <p>- 현금, 수표, 어음, 주식, 국공채 등 유가증권, 예금, 적금, 부금, 보험, 수익증권 등의 총 금액</p>
         <div class="property3">
             본인 <input name="property3" id="property3"> 원
-        </div>
+        </div></td></tr>
 
-        <p>21. 부채금액을 입력하세요</p>
+        <tr><td><p class="q-text">21. 부채금액을 입력하세요</p></td></tr>
+        <tr class="cut">
+       <td>
         <p>- 금융기관 대출금, 공증된 사채 등으로 차용한 금액 중 미상환액</p>
         <div class="debt">
             본인 <input name="debt" id="debt"> 원
-        </div>
+        </div></td></tr>
+        <tr>
+       <td>
         <div class="search">
             <button id="btn-search" type="button">검색</button>
-        </div>
+        </div></td></tr>
+      </table>
     </form>
+
 </body>
 </html>
